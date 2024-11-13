@@ -24,7 +24,9 @@ int reverse_assemble(row_of_memory *memory) {
       switch (opcode) {
         case 0x0:  // NOP or BR
           if (instr == 0x0000) {
-            sprintf(assembly, "NOP");
+            // sprintf(assembly, "NOP");
+			// here we remove nop instruct
+            assembly = NULL;
           } else {
             unsigned short n = (instr >> 11) & 0x1;
             unsigned short z = (instr >> 10) & 0x1;
@@ -38,7 +40,8 @@ int reverse_assemble(row_of_memory *memory) {
             if (z) strcat(condition, "z");
             if (p) strcat(condition, "p");
             if (condition[0] == '\0') {
-              sprintf(assembly, "NOP");
+            //   sprintf(assembly, "NOP");
+              assembly = NULL;
             } else {
               sprintf(assembly, "BR%s #%d", condition, offset);
             }
