@@ -84,7 +84,7 @@ Example:
 
 ## File Descriptions
 
-### `main.c`
+### `lc4.c`
 
 - Initializes the memory linked list.
 - Parses command-line arguments to get the object file name.
