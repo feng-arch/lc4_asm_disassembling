@@ -86,3 +86,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+lc4
+
+tests/
+
+.vscode/
