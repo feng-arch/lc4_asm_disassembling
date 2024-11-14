@@ -38,6 +38,8 @@ row_of_memory* search_opcode  (row_of_memory* head,
 
 void print_list		      (row_of_memory* head ) ;
 
+void print_list_f(row_of_memory *head, FILE *output);
+
 int delete_list    	      (row_of_memory** head ) ;
 
 #endif
