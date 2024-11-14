@@ -58,10 +58,15 @@ int parse_file(FILE *my_obj_file, row_of_memory **memory) {
 
       row_of_memory *node = search_address(*memory, address);
       if (node != NULL) {
+        free(node->label);
         node->label = label;
       } else {
         /* Create a new node with only label and address */
-        add_to_list(memory, address, 0);
+        if (add_to_list(memory, address, 0) != 0) {
+          /* If adding the node fails, free label to avoid a memory leak */
+          free(label);
+          return -1;
+        }
         node = search_address(*memory, address);
         node->label = label;
       }

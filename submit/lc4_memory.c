@@ -111,6 +111,28 @@ void print_list(row_of_memory *head) {
 
   return;
 }
+void print_list_f(row_of_memory *head, FILE *output) {
+  if (head == NULL) {
+    return;
+  }
+
+  fprintf(output, "%-20s %-20s %-20s %s\n", "<label>", "<address>", "<contents>", "<assembly>");
+  row_of_memory *current = head;
+  while (current != NULL) {
+    char address_str[20];
+    char contents_str[20];
+    sprintf(address_str, "%04X", current->address);
+    sprintf(contents_str, "%04X", current->contents);
+    fprintf(output, "%-20s %-20s %-20s %s\n",
+            current->label ? current->label : "",
+            address_str,
+            contents_str,
+            current->assembly ? current->assembly : "");
+    current = current->next;
+  }
+
+  return;
+}
 
 /*
  * delete entire linked list

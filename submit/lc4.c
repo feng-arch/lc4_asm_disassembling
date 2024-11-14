@@ -55,16 +55,33 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  /* step 5: call function: print_list() in lc4_memory.c   */
-  /*   TODO: call function                */
-  print_list(memory);
+  /* step 5: create output file name and open it */
+  char output_filename[100];
+  strncpy(output_filename, filename, sizeof(output_filename) - 1);
+  output_filename[sizeof(output_filename) - 1] = '\0';
 
-  /* step 6: call function: delete_list() in lc4_memory.c */
-  /*   TODO: call function & check for errors     */
-  if (delete_list(&memory) != 0) {
+  /* remove extension if it exists */
+  char *dot = strrchr(output_filename, '.');
+  if (dot != NULL) {
+    *dot = '\0';
+  }
+  strcat(output_filename, ".asm");
+
+  FILE *out_file = fopen(output_filename, "w");
+  if (out_file == NULL) {
+    perror("Error creating output file");
     return -1;
   }
 
+  /* step 6: call function: print_list() in lc4_memory.c   */
+  /*   TODO: call function                */
+  print_list_f(memory, out_file);
+  print_list(memory);
+  fclose(out_file);
+
   /* only return 0 if everything works properly */
+  if (delete_list(&memory) != 0) {
+    return -1;
+  }
   return 0;
 }

@@ -26,6 +26,7 @@ int reverse_assemble(row_of_memory *memory) {
           if (instr == 0x0000) {
             // sprintf(assembly, "NOP");
 			// here we remove nop instruct
+            free(assembly);
             assembly = NULL;
           } else {
             unsigned short n = (instr >> 11) & 0x1;
@@ -41,7 +42,8 @@ int reverse_assemble(row_of_memory *memory) {
             if (p) strcat(condition, "p");
             if (condition[0] == '\0') {
             //   sprintf(assembly, "NOP");
-              assembly = NULL;
+            free(assembly);
+            assembly = NULL;
             } else {
               sprintf(assembly, "BR%s #%d", condition, offset);
             }
@@ -119,6 +121,7 @@ int reverse_assemble(row_of_memory *memory) {
         /* Handle other opcodes similarly */
         default:
           //   sprintf(assembly, "UNIMPLEMENTED");
+          free(assembly);
           assembly = NULL;
           break;
       }
